@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  web-app-1:
+    build: ./src/WebApplication1
+    ports:
+      - '5000:80'
+    environment:
+      ASPNETCORE_URLS: 'http://+:80'
+      ASPNETCORE_ENVIRONMENT: Development
+  web-app-2:
+    depends_on:
+      - web-app-1
+    build: ./src/WebApplication2
+    ports:
+      - '5002:80'
+    environment:
+      ASPNETCORE_URLS: 'http://+:80'
+      ASPNETCORE_ENVIRONMENT: Development
+      WEB_APP_1_URI: 'http://web-app-1:80'
